@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View } from 'react-native';
 import { CAMPSITES } from '../shared/campsites';
-import CampsiteInfoScreen from './CampsitesInfoScreen';
+import CampsiteInfoScreen from './CampsiteInfoScreen';
 import DirectoryScreen from './DirectoryScreen';
 
 const Main = () => {
