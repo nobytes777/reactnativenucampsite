@@ -5,11 +5,8 @@ import { CAMPSITES } from '../shared/campsites';
 import { PROMOTIONS } from '../shared/promotions';
 import { PARTNERS } from '../shared/partners';
 
-const [campsites, setCampsites] = useState(CAMPSITES);
-const [promotions, setPromotions] = useState(PROMOTIONS);
-const [partners, setPartners] = useState(PARTNERS);
-
 const FeaturedItem = ({item}) => {
+
     if(item) {
         return (
             <Card containerStyle={{padding: 0}}>
@@ -26,9 +23,18 @@ const FeaturedItem = ({item}) => {
 };
 
 const HomeScreen = () => {
+    const [campsites, setCampsites] = useState(CAMPSITES);
+    const [promotions, setPromotions] = useState(PROMOTIONS);
+    const [partners, setPartners] = useState(PARTNERS);
+
+    const featCampsite = campsites.find((item) => item.featured);
+    const featPromotion = promotions.find((item) => item.featured);
+    const featPartner = partners.find((item) => item.featured);
 return (
     <ScrollView>
-
+        <FeaturedItem item={featCampsite} />
+        <FeaturedItem item={featPromotion} />
+        <FeaturedItem item={featPartner} />    
     </ScrollView>
 )
 };

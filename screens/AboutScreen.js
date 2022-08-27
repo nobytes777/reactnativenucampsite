@@ -1,7 +1,9 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { ScrollView } from "react-native-gesture-handler";
-import { Card, ListItem } from "react-native-elements";
+import { Card, ListItem, Avatar } from "react-native-elements";
 import { PARTNERS } from '../shared/partners';
+import { useState } from "react";
+import { Text } from 'react-native';
 
 const Mission = () => {
     return(
@@ -15,6 +17,7 @@ const Mission = () => {
 
 const AboutScreen = () => {
     const [partners, setPartners] = useState(PARTNERS);
+    return(
     <ScrollView>
         <Mission />
         <Card>
@@ -34,6 +37,7 @@ const AboutScreen = () => {
         </Card>
 
     </ScrollView>
+    )
 };
 
 export default AboutScreen;
