@@ -1,6 +1,6 @@
 import RenderCampsite from './features/campsites/RenderCampsite';
 import { useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native-gesture-handler';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { COMMENTS } from '../shared/comments';
 
 
@@ -10,12 +10,16 @@ const CampsiteInfoScreen = ({ route }) => {
 
     const [comments, setComments] = useState(COMMENTS);
     const renderCommentItem = ({ item }) => {
-        return <View style={styles.commentItem}>
+        return (
+        <View style={styles.commentItem}>
                 <Text style={{ fontSize: 14 }}>{item.text}</Text>
                 <Text style={{ fontSize: 12 }}>{item.rating} Stars</Text>
-                <Text style={{ fontSize: 12 }}>{`--${item.author}, ${item.date}`}</Text>
+                <Text style={{ fontSize: 12 }}>
+                    {`--${item.author}, ${item.date}`}
+                </Text>
         </View>
-    }
+        )
+    };
     return (
         <FlatList
             data={comments.filter
@@ -23,7 +27,10 @@ const CampsiteInfoScreen = ({ route }) => {
             )}
             renderItem={renderCommentItem}
             keyExtractor={(item) => item.id.toString()}
-            contentContainerStyle={{ marginHorizontal: 20, paddingVertical: 20 }}
+            contentContainerStyle={{ 
+                marginHorizontal: 20, 
+                paddingVertical: 20 
+            }}
             ListHeaderComponent={
             <>
             <RenderCampsite campsite={campsite} />;
