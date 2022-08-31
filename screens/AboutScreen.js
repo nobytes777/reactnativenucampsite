@@ -1,9 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { ScrollView } from "react-native-gesture-handler";
-import { Card, ListItem, Avatar } from "react-native-elements";
+import { Card, ListItem, Avatar, Text } from "react-native";
 import { PARTNERS } from '../shared/partners';
 import { useState } from "react";
-import { Text } from 'react-native';
 
 const Mission = () => {
     return(

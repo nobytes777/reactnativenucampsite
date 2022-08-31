@@ -1,12 +1,14 @@
 import RenderCampsite from './features/campsites/RenderCampsite';
 import { useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { COMMENTS } from '../shared/comments';
+import { Text } from 'react-native';
 
 
 
 const CampsiteInfoScreen = ({ route }) => {
     const { campsite } = route.params;
+    const [favorite, setFavorite] = useState(false);
 
     const [comments, setComments] = useState(COMMENTS);
     const renderCommentItem = ({ item }) => {
@@ -33,7 +35,7 @@ const CampsiteInfoScreen = ({ route }) => {
             }}
             ListHeaderComponent={
             <>
-            <RenderCampsite campsite={campsite} />;
+            <RenderCampsite campsite={campsite} isFavorite={favorite} markFavorite={()=> setFavorite(true)}/>;
             <Text style={StyleSheet.commentsTitle}>Comments</Text>
             </>
             } 
