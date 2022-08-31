@@ -1,8 +1,9 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { ScrollView } from "react-native-gesture-handler";
 import { Card, ListItem, Avatar, Text } from "react-native";
-import { PARTNERS } from '../shared/partners';
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { baseUrl } from "../shared/baseUrl";
 
 const Mission = () => {
     return(
@@ -15,17 +16,17 @@ const Mission = () => {
 }
 
 const AboutScreen = () => {
-    const [partners, setPartners] = useState(PARTNERS);
+    const partners = useSelector((state) => {return state.partners});
     return(
     <ScrollView>
         <Mission />
         <Card>
             <Card.Title>Community Partners</Card.Title>
             <Card.Divider />
-            {partners.map((partner)=> {
+            {partners.partnersArray.map((partner)=> {
                 return(
                     <ListItem key={partner.id}>
-                        <Avatar rounded source={partner.image}></Avatar>
+                        <Avatar rounded source={{ url: baseUrl + item.image }}></Avatar>
                         <ListItem.Content>
                             <ListItem.Title>{partner.name}</ListItem.Title>
                             <ListItem.Subtitle>{partner.description}</ListItem.Subtitle>
