@@ -1,5 +1,6 @@
 import { ScrollView } from "react-native-gesture-handler";
-import { Card, Text } from "react-native";
+import { Text } from "react-native";
+import { Card } from "react-native-elements";
 
 
 

@@ -7,32 +7,32 @@ const RenderCampsite = (props) => {
     if (campsite) {
         return (
             <Card containerStyle={styles.cardContainer}>
-                <Card.Image source={{ url: baseUrl + campsite.image }}>
-                    <View style={{ justifyContent: 'center', flex: 1 }} >
+                <Card.Image source={{ uri: baseUrl + campsite.image }}>
+                    <View style={{ justifyContent: 'center', flex: 1 }}>
                         <Text
-                            style = {{
+                            style={{
                                 color: 'white',
                                 textAlign: 'center',
                                 fontSize: 20
                             }}
-                            >
-                               {campsite.name} 
-                            </Text>
+                        >
+                            {campsite.name}
+                        </Text>
                     </View>
                 </Card.Image>
-                        <Text style={{ margin: 20 }}>{campsite.description}</Text>
-                        <Icon 
-                            name={props.isFavorite ? 'heart' : 'heart-o'}
-                            type='font-awesome'
-                            color='#f50'
-                            raised
-                            reverse
-                            onPress={() =>
-                                props.isFavorite
-                                    ? console.log('Already set as a favorite')
-                                : props.markFavorite()
-                            }
-                        /> 
+                <Text style={{ margin: 20 }}>{campsite.description}</Text>
+                <Icon
+                    name={props.isFavorite ? 'heart' : 'heart-o'}
+                    type='font-awesome'
+                    color='#f50'
+                    raised
+                    reverse
+                    onPress={() =>
+                        props.isFavorite
+                            ? console.log('Already set as a favorite')
+                            : props.markFavorite()
+                    }
+                />
             </Card>
         );
     }
@@ -46,4 +46,5 @@ const styles = StyleSheet.create({
         marginBottom: 20
     }
 });
+
 export default RenderCampsite;

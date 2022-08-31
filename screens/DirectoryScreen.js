@@ -9,23 +9,24 @@ const DirectoryScreen = ({ navigation }) => {
 
     const renderDirectoryItem = ({ item: campsite }) => {
         return (
-            <Tile 
-            title={campsite.name}
-            caption={campsite.description}
-            featured
-            onPress={ () => navigation.navigate('CampsiteInfo', { campsite })}
-            imageSrc={{ url: baseUrl + campsite.image }} 
+            <Tile
+                title={campsite.name}
+                caption={campsite.description}
+                featured
+                onPress={() =>
+                    navigation.navigate('CampsiteInfo', { campsite })
+                }
+                imageSrc={{ uri: baseUrl + campsite.image }}
             />
-
-        )
+        );
     };
-    return(
-    <FlatList
-        data={campsites.campsitesArray}
-        renderItem={renderDirectoryItem}
-        keyExtractor={(item) => item.id.toString()} 
+    return (
+        <FlatList
+            data={campsites.campsitesArray}
+            renderItem={renderDirectoryItem}
+            keyExtractor={(item) => item.id.toString()}
         />
-)
+    );
 };
 
 export default DirectoryScreen;

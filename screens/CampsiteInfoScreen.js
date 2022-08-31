@@ -8,39 +8,45 @@ import { useSelector } from 'react-redux';
 
 const CampsiteInfoScreen = ({ route }) => {
     const { campsite } = route.params;
-    const comments = useSelector((state) => state.comments)
+    const comments = useSelector((state) => state.comments);
+
     const [favorite, setFavorite] = useState(false);
+
     const renderCommentItem = ({ item }) => {
         return (
-        <View style={styles.commentItem}>
+            <View style={styles.commentItem}>
                 <Text style={{ fontSize: 14 }}>{item.text}</Text>
                 <Text style={{ fontSize: 12 }}>{item.rating} Stars</Text>
                 <Text style={{ fontSize: 12 }}>
-                    {`--${item.author}, ${item.date}`}
+                    {`-- ${item.author}, ${item.date}`}
                 </Text>
-        </View>
-        )
+            </View>
+        );
     };
+
     return (
         <FlatList
-            data={comments.commentsArray.filter
-                ((comment) => comment.campsiteId === campsite.id
+            data={comments.commentsArray.filter(
+                (comment) => comment.campsiteId === campsite.id
             )}
             renderItem={renderCommentItem}
             keyExtractor={(item) => item.id.toString()}
-            contentContainerStyle={{ 
-                marginHorizontal: 20, 
-                paddingVertical: 20 
+            contentContainerStyle={{
+                marginHorizontal: 20,
+                paddingVertical: 20
             }}
             ListHeaderComponent={
-            <>
-            <RenderCampsite campsite={campsite} isFavorite={favorite} markFavorite={()=> setFavorite(true)}/>;
-            <Text style={StyleSheet.commentsTitle}>Comments</Text>
-            </>
-            } 
+                <>
+                    <RenderCampsite
+                        campsite={campsite}
+                        isFavorite={favorite}
+                        markFavorite={() => setFavorite(true)}
+                    />
+                    <Text style={styles.commentsTitle}>Comments</Text>
+                </>
+            }
         />
-        )
-        
+    );
 };
 
 const styles = StyleSheet.create({
