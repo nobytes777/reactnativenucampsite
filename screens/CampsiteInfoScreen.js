@@ -6,10 +6,6 @@ import { useState } from 'react';
 import { Input, Rating } from 'react-native-elements';
 import { postComment } from './features/comments/commentsSlice';
 
-
-
-
-
 const CampsiteInfoScreen = ({ route }) => {
     const { campsite } = route.params;
     const comments = useSelector((state) => state.comments);
@@ -95,19 +91,25 @@ const CampsiteInfoScreen = ({ route }) => {
                     type='heart'
                 />
                 <Input
-                    placeholder='Enter Your Name'
-                    leftIcon='user-o'
+                    placeholder='Author'
+                    leftIcon={{
+                        name: 'user-o',
+                        type: 'font-awesome'
+                    }}
                     leftIconContainerStyle={{paddingRight:10}}
                     onChangeText={(author) => setAuthor(author)}
                     value={author}
-                >Author</Input>
+                />
                 <Input
-                    placeholder='Enter Your Comments'
-                    leftIcon='comment-o'
+                    placeholder='Comments'
+                    leftIcon={{
+                        name: 'comment-o',
+                        type: 'font-awesome'
+                    }}
                     leftIconContainerStyle={{paddingRight:10}}
-                    onChangeText={(text) => setText(text)}
+                    onChangeText={(comment) => setText(comment)}
                     value={text}
-                >Comment</Input>
+                />
                 <View style={{margin:10}}>
                     <Button 
                         title='Submit'
