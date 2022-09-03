@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleFavorite } from './features/favorites/favoritesSlice';
 import { useState } from 'react';
 import { Input, Rating } from 'react-native-elements';
+import { postComment } from './features/comments/commentsSlice';
+
 
 
 
@@ -25,7 +27,7 @@ const CampsiteInfoScreen = ({ route }) => {
             text,
             campsiteId: campsite.id
         };
-        console.log(newComment);
+        dispatch(postComment(newComment));
         setShowModal(!showModal);
     };
 
@@ -39,12 +41,12 @@ const CampsiteInfoScreen = ({ route }) => {
             <View style={styles.commentItem}>
                 <Text style={{ fontSize: 14 }}>{item.text}</Text>
                 <Rating 
+                    startingValue={rating}
                     imageSize={10}
                     style={{ alignItems: 'flex-start',
-                            paddingVertical:'5%', 
-                            readonly }}>
-                    {item.rating}
-                </Rating>
+                            paddingVertical:'5%' }}
+                    readonly
+                />
                 <Text style={{ fontSize: 12 }}>
                     {`-- ${item.author}, ${item.date}`}
                 </Text>
@@ -94,7 +96,6 @@ const CampsiteInfoScreen = ({ route }) => {
                 />
                 <Input
                     placeholder='Enter Your Name'
-                    type
                     leftIcon='user-o'
                     leftIconContainerStyle={{paddingRight:10}}
                     onChangeText={(author) => setAuthor(author)}
