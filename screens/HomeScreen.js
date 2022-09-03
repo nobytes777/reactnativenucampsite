@@ -3,6 +3,7 @@ import { Card } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import Loading from '../components/LoadingComponent';
+import React from 'react';
 
 const FeaturedItem = (props) => {
     const { item } = props;
@@ -45,25 +46,27 @@ const HomeScreen = () => {
     const partners = useSelector((state) => state.partners);
 
     const featCampsite = campsites.campsitesArray.find((item) => item.featured);
-    const featPromotion = promotions.promotionsArray.find((item) => item.featured);
+    const featPromotion = promotions.promotionsArray.find(
+        (item) => item.featured
+    );
     const featPartner = partners.partnersArray.find((item) => item.featured);
 
     return (
         <ScrollView>
-            <FeaturedItem 
+            <FeaturedItem
                 item={featCampsite}
                 isLoading={campsites.isLoading}
                 errMess={campsites.errMess}
             />
-            <FeaturedItem 
+            <FeaturedItem
                 item={featPromotion}
                 isLoading={promotions.isLoading}
                 errMess={promotions.errMess}
             />
-            <FeaturedItem 
-            item={featPartner} 
-            isLoading={partners.isLoading}
-            errMess={partners.errMess}
+            <FeaturedItem
+                item={featPartner}
+                isLoading={partners.isLoading}
+                errMess={partners.errMess}
             />
         </ScrollView>
     );
