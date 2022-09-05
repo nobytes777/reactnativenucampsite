@@ -1,47 +1,54 @@
 import { Text, View, StyleSheet } from 'react-native';
 import { Card, Icon} from 'react-native-elements';
-import { fonts } from 'react-native-elements/dist/config';
 import { baseUrl } from '../../../shared/baseUrl';
+import * as Animatable from 'react-native-animatable'
 
 const RenderCampsite = (props) => {
     const { campsite } = props;
     if (campsite) {
         return (
-            <Card containerStyle={styles.cardContainer}>
-                <Card.Image source={{ uri: baseUrl + campsite.image }}>
-                    <View style={{ justifyContent: 'center', flex: 1 }}>
-                        <Text
-                            style={styles.cardText}
-                        >
-                            {campsite.name}
-                        </Text>
-                    </View>
-                </Card.Image>
-                <Text style={styles.cardRow}>{campsite.description}</Text>
-                <Icon
-                    name={props.isFavorite ? 'heart' : 'heart-o'}
-                    type='font-awesome'
-                    color='#f50'
-                    raised
-                    reverse
-                    onPress={() =>
-                        props.isFavorite
-                            ? console.log('Already set as a favorite')
-                            : props.markFavorite()
-                    }
-                />                
-                
-                <Icon
-                    name='pencil'
-                    type='font-awesome'
-                    color='#5637DD'
-                    raised
-                    reverse
-                    onPress={() =>
-                        props.onShowModal()
-                    }
-                />
-            </Card>
+
+            <Animatable.View
+                animation='fadeInDownBig'
+                duration={2000}
+                delay={1000}
+            >
+                <Card containerStyle={styles.cardContainer}>
+                    <Card.Image source={{ uri: baseUrl + campsite.image }}>
+                        <View style={{ justifyContent: 'center', flex: 1 }}>
+                            <Text
+                                style={styles.cardText}
+                            >
+                                {campsite.name}
+                            </Text>
+                        </View>
+                    </Card.Image>
+                    <Text style={styles.cardRow}>{campsite.description}</Text>
+                    <Icon
+                        name={props.isFavorite ? 'heart' : 'heart-o'}
+                        type='font-awesome'
+                        color='#f50'
+                        raised
+                        reverse
+                        onPress={() =>
+                            props.isFavorite
+                                ? console.log('Already set as a favorite')
+                                : props.markFavorite()
+                        }
+                    />                
+                    
+                    <Icon
+                        name='pencil'
+                        type='font-awesome'
+                        color='#5637DD'
+                        raised
+                        reverse
+                        onPress={() =>
+                            props.onShowModal()
+                        }
+                    />
+                </Card>
+            </Animatable.View>
         );
     }
     return <View />;
