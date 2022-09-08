@@ -3,11 +3,19 @@ import { Card, Icon} from 'react-native-elements';
 import { baseUrl } from '../../../shared/baseUrl';
 import * as Animatable from 'react-native-animatable';
 import { PanResponder } from 'react-native';
+import { useRef } from 'react';
+
 
 const RenderCampsite = (props) => {
     const { campsite } = props;
+    const view = useRef();
     const isLeftSwipe = ({ dx }) => dx < -200;
     const panResponder = PanResponder.create({
+        onPanResponderGrant: () => {
+            view.current 
+                .rubberBand(1000)
+                .then((endState) => console.log(endState.finished ? 'finished' : 'canceled'))        
+        },
         onStartShouldSetPanResponder: () => true,
         onPanResponderEnd: (e, gestureState) => {
             console.log(gestureState);
@@ -44,6 +52,7 @@ const RenderCampsite = (props) => {
                 duration={2000}
                 delay={1000}
                 {...panResponder.panHandlers}
+                ref={view}
             >
                 <Card containerStyle={styles.cardContainer}>
                     <Card.Image source={{ uri: baseUrl + campsite.image }}>
