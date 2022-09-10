@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
     Text,
     View,
@@ -40,24 +40,22 @@ const ReservationScreen = () => {
         setShowCalendar(false);
     };
 
-    const zoomInValue = useRef(newAnimated.Value(0)).current;
-
-    const zoomIn = Animated.timing(
-        screenScaleValue, {
+    const zoomInValue = useRef(new Animated.Value(0)).current;
+    const zoomIn = Animated.timing(zoomInValue, {
             toValue: 1,
             duration: 2000,
             delay: 1000,
-            useNativeDriver
-        }
-    );
+            useNativeDriver: true
+        });
+    
+    useEffect(() => {
+        zoomIn.start();
+    }, []) 
 
     return (
         <ScrollView>
             <Animatable.View
-                zoomIn={{
-                    duration: 2000,
-                    delay: 1000
-                }}
+                style={{ transform: [{ scale: zoomInValue }] }}
             >
                 <View style={styles.formRow}>
                     <Text style={styles.formLabel}>Number of Campers:</Text>
