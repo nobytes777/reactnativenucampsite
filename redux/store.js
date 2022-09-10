@@ -1,16 +1,48 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { campsitesReducer } from '../screens/features/campsites/campsitesSlice';
 import { commentsReducer } from '../screens/features/comments/commentsSlice';
 import { partnersReducer } from '../screens/features/partners/partnersSlice';
 import { promotionsReducer } from '../screens/features/promotions/promotionsSlice';
 import { favoritesReducer } from '../screens/features/favorites/favoritesSlice';
+import { 
+    persistStore, 
+    persistCombineReducers, 
+    FLUSH, 
+    REHYDRATE, 
+    PAUSE, 
+    PERSIST, 
+    PURGE, 
+    REGISTER } 
+    from 'redux-persist';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const config = {
+    key: 'root',
+    storage: AsyncStorage,
+    debug: true
+}
 
 export const store = configureStore({
-    reducer: {
+    reducer: persistCombineReducers(config, {
         campsites: campsitesReducer,
         comments: commentsReducer,
         partners: partnersReducer,
         promotions: promotionsReducer,
-        favorites: favoritesReducer
-    }
+        favorites: favoritesReducer,
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware({
+                serializableCheck: {
+                    ignoredActions: [
+                        FLUSH,
+                        REHYDRATE,
+                        PAUSE,
+                        PERSIST,
+                        PURGE,
+                        REGISTER
+                    ]
+                }
+            })
+    })
 });
+
+export const persistor = persistStore(store);
