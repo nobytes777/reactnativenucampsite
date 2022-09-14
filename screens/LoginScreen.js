@@ -12,34 +12,35 @@ const LoginScreen = () => {
         console.log('username:', username);
         console.log('password:', password);
         console.log('remember:', remember);
-
         if (remember) {
             SecureStore.setItemAsync(
-                'userInfo',
+                'userinfo',
                 JSON.stringify({
                     username,
                     password
                 })
             ).catch((error) => console.log('Could not save user info', error));
         } else {
-            SecureStore.deleteItemAsync('userinfo').catch((error) => console.log('Could not delete user info', error))
+            SecureStore.deleteItemAsync('userinfo').catch((error) =>
+                console.log('Could not delete user info', error)
+            );
         }
     };
 
     useEffect(() => {
         SecureStore.getItemAsync('userinfo').then((userdata) => {
-            JSON.parse(userdata);
+            const userinfo = JSON.parse(userdata);
             if (userinfo) {
                 setUsername(userinfo.username);
                 setPassword(userinfo.password);
                 setRemember(true);
             }
-        })
-    }, [])
+        });
+    }, []);
 
     return (
         <View style={styles.container}>
-            <Input 
+            <Input
                 placeholder='Username'
                 leftIcon={{ type: 'font-awesome', name: 'user-o' }}
                 onChangeText={(text) => setUsername(text)}
@@ -47,7 +48,7 @@ const LoginScreen = () => {
                 containerStyle={styles.formInput}
                 leftIconContainerStyle={styles.formIcon}
             />
-            <Input 
+            <Input
                 placeholder='Password'
                 leftIcon={{ type: 'font-awesome', name: 'key' }}
                 onChangeText={(text) => setPassword(text)}
@@ -55,7 +56,7 @@ const LoginScreen = () => {
                 containerStyle={styles.formInput}
                 leftIconContainerStyle={styles.formIcon}
             />
-            <CheckBox 
+            <CheckBox
                 title='Remember Me'
                 center
                 checked={remember}
@@ -63,14 +64,14 @@ const LoginScreen = () => {
                 containerStyle={styles.formCheckbox}
             />
             <View style={styles.formButton}>
-                <Button 
+                <Button
                     onPress={() => handleLogin()}
                     title='Login'
-                    color='#563700'
+                    color='#5637DD'
                 />
             </View>
         </View>
-    )
+    );
 };
 
 const styles = StyleSheet.create({
@@ -91,7 +92,6 @@ const styles = StyleSheet.create({
     formButton: {
         margin: 40
     }
-
 });
 
 export default LoginScreen;
