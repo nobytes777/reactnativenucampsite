@@ -6,9 +6,8 @@ import {
     StyleSheet,
     Switch,
     Button,
-    Modal,
     Animated,
-    Animatable
+    Alert
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -54,7 +53,7 @@ const ReservationScreen = () => {
 
     return (
         <ScrollView>
-            <Animatable.View
+            <Animated.View
                 style={{ transform: [{ scale: zoomInValue }] }}
             >
                 <View style={styles.formRow}>
@@ -101,42 +100,30 @@ const ReservationScreen = () => {
                 )}
                 <View style={styles.formRow}>
                     <Button
-                        onPress={() => handleReservation()}
+                        onPress= {() => Alert.alert('Begin Search?',
+                        `Number of campers: ${campers}\n\nHike-In? ${hikeIn}\n\nDate: ${date.toLocaleDateString('en-us',{month:'numeric', day: 'numeric', year: 'numeric'})}`,
+                        [
+                            {
+                                text: 'Cancel',
+                                onPress: () => {console.log("Cancel Pressed"),
+                                resetForm()},
+                                style: "cancel"
+                            },
+                            {
+                                 text: "OK", 
+                                 onPress: () => { console.log("OK Pressed"),
+                                 resetForm()},
+                                 style: "cancel"
+                            }
+                        ],
+                        { cancelable: false }
+                    )}
                         title='Search Availability'
                         color='#5637DD'
                         accessibilityLabel='Tap me to search for available campsites to reserve'
                     />
                 </View>
-                <Modal
-                    animationType='slide'
-                    transparent={false}
-                    visible={showModal}
-                    onRequestClose={() => setShowModal(!showModal)}
-                >
-                    <View style={styles.modal}>
-                        <Text style={styles.modalTitle}>
-                            Search Campsite Reservations
-                        </Text>
-                        <Text style={styles.modalText}>
-                            Number of Campers: {campers}
-                        </Text>
-                        <Text style={styles.modalText}>
-                            Hike-In?: {hikeIn ? 'Yes' : 'No'}
-                        </Text>
-                        <Text style={styles.modalText}>
-                            Date: {date.toLocaleDateString('en-US')}
-                        </Text>
-                        <Button
-                            onPress={() => {
-                                setShowModal(!showModal);
-                                resetForm();
-                            }}
-                            color='#5637DD'
-                            title='Close'
-                        />
-                    </View>
-                </Modal>
-            </Animatable.View>
+            </Animated.View>
         </ScrollView>
     );
 };
