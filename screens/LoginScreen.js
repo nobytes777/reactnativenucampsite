@@ -6,7 +6,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as ImagePicker from 'expo-image-picker';
 import { baseUrl } from '../shared/baseUrl';
 import logo from '../assets/images/logo.png';
-import { ImageManipulator } from 'expo-image-manipulator';
+import * as ImageManipulator from 'expo-image-manipulator';
+import { SaveFormat } from 'expo-image-manipulator/build/ImageManipulator.types';
 
 const LoginTab = ({ navigation }) => {
     const [username, setUsername] = useState('');
@@ -100,6 +101,22 @@ const LoginTab = ({ navigation }) => {
                     titleStyle={{ color: 'blue' }}
                 />
             </View>
+                        <View style={styles.formButton}>
+                <Button
+                    onPress={() => navigation.navigate('Register')}
+                    title='Register'
+                    type='clear'
+                    icon={
+                        <Icon
+                            name='user-plus'
+                            type='font-awesome'
+                            color='blue'
+                            iconStyle={{ marginRight: 10 }}
+                        />
+                    }
+                    titleStyle={{ color: 'blue' }}
+                />
+            </View>
         </View>
     );
 };
@@ -152,6 +169,20 @@ const RegisterTab = () => {
         }
     };
 
+    const getImageFromGallery = async () => {
+        const mediaLibraryPermissions = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (mediaLibraryPermissions.status === 'granted') {
+            const capturedImage = await ImagePicker.launchImageLibraryAsync({
+                allowsEditing: true,
+                aspect: [1, 1]
+            });
+            if (!capturedImage.cancelled) {
+                console.log(capturedImage);
+                processImage(capturedImage.uri);
+            }
+        }
+    };
+
     const processImage = async (imgUri) => {
         const processedImage = await ImageManipulator.manipulateAsync(
             imgUri,
@@ -160,10 +191,10 @@ const RegisterTab = () => {
                     width: 400
                 }}
             ],
-            SaveFormat.PNG = 'png'
+            {format: SaveFormat.PNG}
         );
         console.log(processedImage);
-        setImageUrl(capturedImage.uri)
+        setImageUrl(processedImage.uri)
     };
 
     return (
@@ -178,6 +209,10 @@ const RegisterTab = () => {
                     <Button 
                         title='Camera'
                         onPress={getImageFromCamera}
+                    />
+                    <Button 
+                        title='Gallery'
+                        onPress={getImageFromGallery}
                     />
                 </View>
                 <Input
